@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+               <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" />      
+    </head>
+    <body>               
+{foreach from=$titleDetail item=value}
+         <table id=tac  height="300" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6FA ">       <!--titleDetail-->
+      <th colspan="2" height="10%" align="left">
+      <h4>TITLE:
+          </h4>
+      <h4>
+              {$value.title}
+              </h4>
+      <button>
+   
+	  <a href="titleList.php?menuId={$getMenuId}&page={$page}"> back</a>
+	<!--  
+	  <a href="javascript:history.go(-1);">back</a>
+      -->
+	  </button>    
+      </th>
+             <tr height="10%">
+                 <td width="20%">
+                发帖人： {$value.name}
+                 </td>
+                 <td>
+                {$value.time}
+                 </td>
+             </tr>   
+             <tr >  
+                 <td colspan="2"    > 
+                     {$value.content}
+                 </td>
+             </tr>
+         </table>
+{/foreach}
+        
+{foreach from=$replyRows item=value}
+         <table id=tac  height="300" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6FA ">       <!--replyContent-->
+             <tr height="10%">
+                 <td width="20%">
+               回帖人：  {$value.name}
+                 </td>
+                 <td>
+                {$value.time}
+                 </td>
+             </tr>   
+             <tr >  
+                 <td colspan="2"    > 
+                     {$value.content}
+                 </td>
+             </tr>
+         </table>
+{/foreach}
+      {if $detailPages != 0 }        
+<table  height="30" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">    <!--pageList-->
+  
+        <tr> 
+            <td colspan="4" bgcolor="#E6E6FA">
+                <div align="center">
+                    <div class='page'>
+                        <span>{$detailPage}/{$detailPages}</span>
+                        {if $detailPage != 1} 
+                        <a href="detail.php?menuId={$getMenuId}&detailPage=1&titleId={$titleId}">首页</a>
+                        <a href="detail.php?menuId={$getMenuId}&detailPage={($detailPage-1)}&titleId={$titleId}">上一页</a> 
+                        {else} 
+                        首页
+                        上一页
+                        {/if}
+
+                        {foreach from=$detailPageList item=i}  
+                        {if $i <= $detailPages}
+
+                        {if $i == $detailPage} 
+                        <span id = "page">{$i}</span>
+                        {else}
+                        <a href="detail.php?menuId={$getMenuId}&detailPage={$i}&titleId={$titleId}">{$i}</a> 
+                        {/if} 
+                        {/if}
+                        {/foreach}
+
+                        {if $detailPage != $detailPages} 
+                        <a href="detail.php?menuId={$getMenuId}&detailPage={$detailPage+1}&titleId={$titleId}">下一页</a> 
+                        <a href="detail.php?menuId={$getMenuId}&detailPage={$detailPages}&titleId={$titleId}">末页</a>
+                        {else} 
+                       下一页
+                       末页
+                        {/if}
+                    </div>
+                </div>
+            </td> 
+        </tr> 
+   
+    </table>
+          {/if} 
+          {if $cookieName != "tourist"}
+          <table height="30" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">
+              <tr><td>
+              <h3><a href="reply.php?titleId={$titleId}&detailPage={$detailPage}&menuId={$getMenuId}">Reply</a></h3>
+               </td></tr>
+          </table>
+          {else}
+               <table height="30" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">
+              <tr><td>
+              <h3><a href="index.php">If you want to reply,login please</a></h3>
+               </td></tr>
+          </table>
+          {/if}
+    </body>
+    
+</html>

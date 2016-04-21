@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" /> 
+    </head>
+    <body>
+        <table  id="tab" height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+            <tr>
+                <td align="left">
+                    <button><a href="titleList.php?menuId={$getMenuId}">Back</a></button>
+                </td>
+
+                <td>
+                </td>
+
+                <td>
+                </td>
+
+                <td>
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="25%">Title</td>
+                <td width="25%">name</td>
+                <td width="25%">time</td>
+                <td width="25%">replyCount</td>
+            </tr>
+            {foreach from=$titleRows item=value}
+            <tr align="center" >
+                <td>
+                    <a href = "detail.php?titleId={$value.id}&menuId={$getMenuId}&page={$page}">
+                        {$value.title}
+                    </a>
+                </td>
+                <td>
+                    {$value.name}
+                </td>
+                <td>
+                    {$value.time}
+                </td>
+                <td>
+                    {$value.reply_count}
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+
+
+    </body>
+</html>

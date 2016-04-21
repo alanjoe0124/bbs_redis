@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" />
+        <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js">
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".onTop").click(function () {
+                    $(".onTopList").slideToggle();
+                });
+            });
+            $(document).ready(function(){
+                $(".topics").click(function(){
+                    $(".topicsList").slideToggle();
+                });
+            });
+        </script>
+    </head>
+    <body>
+	{nocache}
+        <table  height="100" border="0" cellspacing="0" cellpadding="1" bgcolor="#D8BFD8">     <!--head-->
+            <tr>
+                <td align="left" >
+                    <h1>
+                        <a href="index.php">
+                            BBS
+                        </a>
+                    </h1>
+                </td>
+                <td  width="33%">
+
+                </td>
+                {if $cookieName != "tourist"}
+                <td align="center" width="33%">
+                    <h3>
+                        {$cookieName}
+                    </h3>
+                    <h4><a href='index.php?logout=1'>logout</a>
+                    </h4>
+                </td>
+                {else}
+                <td align="center" width="33%" >
+
+                </td>
+                {/if}
+            </tr>
+        </table>
+	{/nocache}
+        <br>
+        <table  height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+            <tr>
+                {foreach from=$subCategoryName item=value}
+                <td align="left">
+                    <h3>
+                        {$value.name}
+                    </h3>
+                </td>  
+                {/foreach}
+                <td align="left">
+                    <form action="searchList.php" method="post">
+                        <input type="hidden" name="menuId" value="{$getMenuId}"/>
+                        <td align="left">   
+                            <select name="searchType">
+                                <option value="title">title</option>
+                                <option value="name">name</option>
+                            </select>
+                            <input type="text" name="searchContent"/>
+                            <input type="submit" value="search"/>
+                    </form>
+                </td>
+                <td>
+                    {if $cookieName != "tourist" }
+                    <button><a href="post.php?menuId={$getMenuId}&page={$page}">Post</a></button>
+                    {else}
+                    <a href="index.php">If you want to post,login please</a>
+                    {/if}
+                </td>
+            </tr>
+        </table>
+        <br>
+
+
+        <table  id="tab" height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--top-->
+            <th class="onTop" colspan="4" style="border:2px solid #C0C0C0 "  height="10" align="left">
+
+            <h4>
+                OnTop
+            </h4>
+
+        </th>
+        <tr class="onTopList" align="center">
+            <td width="25%">Title</td>
+            <td width="25%">name</td>
+            <td width="25%">time</td>
+            <td width="25%">replyCount</td>
+        </tr>
+        {foreach from=$topbbs item=value}
+        <tr class="onTopList" align="center" >
+            <td>
+                <a href = "detail.php?titleId={$value.id}&menuId={$getMenuId}">
+                    {$value.title}
+                </a>
+            </td>
+            <td>
+                {$value.name}
+            </td>
+            <td>
+                {$value.time}
+            </td>
+            <td>
+                {$value.reply_count}
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+
+    <br>
+    <table  id="tab" height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+        <th class="topics" colspan="4" style="border:2px solid #C0C0C0 "  height="10" align="left">
+
+        <h4>
+            Topics
+        </h4>
+        <a href="titleList.php?condition=time&menuId={$getMenuId}">New
+        </a>
+        &nbsp;
+        <a href="titleList.php?condition=reply_count&menuId={$getMenuId}">Hot
+        </a>
+
+    </th>
+    <tr class="topicsList" align="center">
+        <td width="25%">Title</td>
+        <td width="25%">name</td>
+        <td width="25%">time</td>
+        <td width="25%">replyCount</td>
+    </tr>
+    {foreach from=$titleRows item=value}
+    <tr class="topicsList" align="center" >
+        <td>
+            <a href = "detail.php?titleId={$value.id}&menuId={$getMenuId}&page={$page}">
+                {$value.title}
+            </a>
+        </td>
+        <td>
+            {$value.name}
+        </td>
+        <td>
+            {$value.time}
+        </td>
+        <td>
+            {$value.reply_count}
+        </td>
+    </tr>
+    {/foreach}
+</table>
+<table class="topicsList" height="30" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">    <!--pageList-->
+    {if $pages !=0}
+    <tr> 
+        <td colspan="4" bgcolor="#E6E6FA">
+            <div align="center">
+                <div class='page'>
+                    <span>{$page}/{$pages}</span>
+                    {if $page != 1} 
+                    <a href="titleList.php?menuId={$getMenuId}&page=1&condition={$getCondition}">首页</a>
+                    <a href="titleList.php?menuId={$getMenuId}&page={($page-1)}&condition={$getCondition}">上一页</a> 
+                    {else} 
+                    首页
+                    上一页
+                    {/if}
+
+                    {foreach from=$pageList item=i}  
+                    {if $i <= $pages}
+
+                    {if $i == $page} 
+                    <span id = "page">{$i}</span>
+                    {else}
+                    <a href="titleList.php?menuId={$getMenuId}&page={$i}&condition={$getCondition}">{$i}</a> 
+                    {/if} 
+                    {/if}
+                    {/foreach}
+
+                    {if $page != $pages} 
+                    <a href="titleList.php?menuId={$getMenuId}&page={$page+1}&condition={$getCondition}">下一页</a> 
+                    <a href="titleList.php?menuId={$getMenuId}&page={$pages}&condition={$getCondition}">末页</a>
+                    {else} 
+                    下一页
+                    末页
+                    {/if}
+                </div>
+            </div>
+        </td> 
+    </tr> 
+    {/if}
+</table>
+<table  height="150" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+    <th colspan="2"  style="border:1px solid #C0C0C0 "  height="50" align="center"><h3>Thanks for surfing</h3></th>
+</table>
+</body>
+</html>

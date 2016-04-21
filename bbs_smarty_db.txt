@@ -1,0 +1,124 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.9.2
+-- http://www.phpmyadmin.net
+--
+-- 主机: 127.0.0.1:3306
+-- 生成日期: 2016 年 01 月 23 日 04:14
+-- 服务器版本: 5.1.28
+-- PHP 版本: 5.2.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- 数据库: `bbs_smarty`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bbs`
+--
+
+CREATE TABLE IF NOT EXISTS `bbs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(20) CHARACTER SET utf8 NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `title` char(25) CHARACTER SET utf8 NOT NULL,
+  `content` text CHARACTER SET utf8 NOT NULL,
+  `menu` tinyint(3) NOT NULL,
+  `parent` int(10) NOT NULL,
+  `reply_count` int(6) unsigned NOT NULL,
+  `ontop` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `menuFK` (`menu`),
+  KEY `ixname` (`name`),
+  FULLTEXT KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- 导出表中的数据 `bbs`
+--
+
+INSERT INTO `bbs` (`id`, `name`, `time`, `title`, `content`, `menu`, `parent`, `reply_count`, `ontop`) VALUES
+(10, 'aa', '2015-08-22 13:42:02', 'aa1', 'asdfsd', 3, 0, 0, 1),
+(11, 'aa', '2015-08-22 13:41:57', 'aa2', 'sdfsd', 3, 0, 0, 1),
+(12, 'aa', '2015-08-22 13:35:22', 'aa3', 'dsfsfd', 3, 0, 0, 0),
+(13, 'bb', '2015-08-22 13:35:45', 'bb1', 'sfsdfsdf', 3, 0, 0, 0),
+(14, 'bb', '2015-08-22 13:35:50', 'bb2', 'sdfsdfewfe', 3, 0, 0, 0),
+(15, 'bb', '2015-08-22 13:35:55', 'bb3', 'sdfewfasf', 3, 0, 0, 0),
+(16, 'bb', '2015-08-22 13:38:11', 'bb4', 'sdfsdfds', 3, 0, 5, 0),
+(17, 'aa', '2015-08-22 13:37:11', '', 'fffffff', 0, 16, 0, 0),
+(18, 'aa', '2015-08-22 13:37:18', '', 'dsfwefwe', 0, 16, 0, 0),
+(19, 'aa', '2015-08-22 13:38:04', '', 'dfdf', 0, 16, 0, 0),
+(20, 'aa', '2015-08-22 13:38:08', '', 'sdfsd', 0, 16, 0, 0),
+(21, 'aa', '2015-08-22 13:38:11', '', 'fdfsfd', 0, 16, 0, 0),
+(22, 'cc', '2015-08-22 13:47:06', 'cc1', 'cc23', 3, 0, 0, 0),
+(23, 'aa', '2015-08-22 20:59:50', 'wqerwqer', 'qwerwqer', 3, 0, 2, 0),
+(24, 'aa', '2015-08-22 20:59:44', '', 'sfdgsdfg', 0, 23, 0, 0),
+(25, 'aa', '2015-08-22 20:59:50', '', 'sgsfdfg', 0, 23, 0, 0),
+(26, 'aa', '2015-08-22 21:00:37', 'ddd', 'dddd', 4, 0, 0, 0),
+(1, 'aa', '2015-08-23 16:45:22', '', '', 0, 0, 0, 0),
+(2, 'aa', '2015-08-25 22:45:17', '', '', 0, 0, 0, 0),
+(27, 'aa', '2016-01-04 09:20:28', 'hehehe', 'hehehe', 3, 0, 1, 0),
+(28, 'aa', '2016-01-04 09:20:28', '', '?', 0, 27, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `member`
+--
+
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` char(15) CHARACTER SET utf8 NOT NULL,
+  `password` char(15) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74 ;
+
+--
+-- 导出表中的数据 `member`
+--
+
+INSERT INTO `member` (`id`, `name`, `password`) VALUES
+(61, 'aa', 'aa'),
+(62, 'bb', '111111111111111'),
+(63, 'cc', 'cc'),
+(64, 'dd', 'dd'),
+(65, 'ee', 'ee'),
+(66, 'ff', 'ff'),
+(67, 'gg', 'gg'),
+(68, 'hh', 'hh'),
+(69, 'ii', 'ii'),
+(70, 'jj', 'jj'),
+(71, 'kk', 'kk'),
+(72, 'mm', 'mm'),
+(73, 'nn', 'nn');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `menu`
+--
+
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(20) CHARACTER SET utf8 NOT NULL,
+  `postnum` int(10) unsigned NOT NULL,
+  `parent` int(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- 导出表中的数据 `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`, `postnum`, `parent`) VALUES
+(1, 'My College', 0, 0),
+(2, 'Entertainment', 0, 0),
+(3, 'School life', 10, 1),
+(4, 'Campus one corner', 1, 1),
+(5, 'TV', 0, 2),
+(6, 'Movie', 0, 2),
+(7, 'life', 0, 0),
+(8, 'delicacy', 0, 7),
+(9, 'clothes', 0, 7);

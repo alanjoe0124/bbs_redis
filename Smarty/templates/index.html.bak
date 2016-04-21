@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" /> <!--index.php relatively-->
+        <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js">
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".category").click(function () {
+                    $(".subCategory").slideToggle();
+                });
+            });
+        </script>
+    </head>
+    <body>
+	{literal}
+		<script>
+			alert("Hi");
+		</script>
+	{/literal}
+        <table  height="100" border="0" cellspacing="0" cellpadding="1" bgcolor="#D8BFD8">     <!--head-->
+            <tr>
+                <td align="left" >
+                    <h1>
+                        <a href="index.php">
+                            BBS
+                        </a>
+                    </h1>
+                </td>
+                <td  width="33%">
+                    {if $cookieName == NULL}  
+                    <table cellspacing="1" cellpadding="1">
+                        <form action="login.php" method="post" name="register_login">
+                            <tr>
+                                <td align="right">
+                                    UserName:
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="userName"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    Password:
+                                </td>
+                                <td align="left">
+                                    <input type="password" name="pwd"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td align="left">
+                                    <input type="submit" value="login" />
+                                    <button><a href="register.php">register</a></button>
+                                </td>
+
+                            </tr>
+                        </form>
+                    </table>
+                    {else}
+
+                    {/if}
+                </td>
+                {if $cookieName != NULL}
+                <td align="center" width="33%">
+                    <h3>
+                        {$cookieName}
+                    </h3>
+                    <h4><a href='index.php?logout=1'>logout</a>
+                    </h4>
+                </td>
+                {else}
+                <td align="center" width="33%" >
+
+                </td>
+                {/if}
+            </tr>
+        </table>
+        <br>
+
+        {foreach from=$categoryRows item=cateValue}
+        <table   border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+            <th height="50" class="category" colspan="2"  style="border:1px solid #C0C0C0 "  height="50" align="left"><h2>{$cateValue.name}</h2></th>
+
+        <tr height="100" class="subCategory">
+            {foreach from=$cateValue.child item=subCateValue}
+            <td align="center" > 
+                <table >
+                    <tr>
+                        <td align="center"><h3><a href="titleList.php?menuId={$subCateValue.id}">
+                                    {$subCateValue.name|capitalize|upper} </a></h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center"><h4>
+                                Posting Number:({$subCateValue.postnum})</h4>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            {/foreach} 
+        </tr>
+    </table>
+    {/foreach}
+
+    <table  height="150" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+        <th colspan="2"  style="border:1px solid #C0C0C0 "  height="50" align="center"><h3>Post Rank top 10</h3></th>
+    {foreach from=$arrRank item=value key=key}
+    <tr>
+        <td>{$key}</td>
+
+        <td>{$value}</td>
+
+
+    </tr>  
+    {/foreach}
+</table>
+</body>
+</html>

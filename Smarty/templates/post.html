@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+  <table id="tab" height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--head-->
+            <tr>
+                {foreach from=$subCategoryName item=value}
+                <td align="left">
+                    <h3>
+                        {$value.name}
+                    </h3>
+                </td>  
+                {/foreach}
+                <td align="left">
+                </td>
+                <td>
+                    <button>
+                    <a href="titleList.php?menuId={$getMenuId}&page={$page}">Back</a>
+                    </button>
+                    </td>
+            </tr>
+        </table>    
+        <form action="post.php" method="post">
+            <input type="hidden" name="cookieName" value="{$cookieName}">
+            <input type="hidden" name="menuId" value="{$getMenuId}">
+            <input type="hidden" name="page" value="{$page}">
+            <table id="tab" height="50" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--title-->
+            <tr>
+                <td align="left" width="33%">
+                        <h3>Title:</h3>
+                </td>  
+  
+                <td align="left" width="33%">
+                    <input class=inpt type="text" name="titleName" width="300" />
+                </td>
+                <td>
+                    
+                    </td>
+            </tr>
+        </table>             
+        
+         <table id="tab" height="600" border="0" cellspacing="0" cellpadding="1" bgcolor="#E6E6FA ">       <!--content-->
+            <tr >
+                <td align="left" width="33%">
+                        <h3>Content:</h3>
+                </td>  
+  
+                <td align="left" width="67%" height="500">
+                  
+                    <textarea  name="titleContent"  ></textarea>     
+                    <input type="submit" value="submit" />
+                </td>
+         
+            </tr>
+        </table>    
+        </form>
+    </body>
+</html>

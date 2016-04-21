@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <link href="css/bbs_smarty.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+      
+          <table id='tac'  height="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6FA "> 
+          <th align='left' height='5%'>
+         <button>
+        <a href="detail.php?menuId={$menuId}&titleId={$titleId}&detailPage={$detailPage}">Back</a>
+        </button> 
+          </th >
+              <tr><td height='95%'>
+                      <form action="reply.php" method="post">
+              <input type='hidden' name='titleId' value='{$titleId}'>
+              <input type='hidden' name='menuId' value='{$menuId}' >
+              <input type='hidden' name='detailPage' value='{$detailPage}'>
+                      <textarea name="replyPost" ></textarea>
+                      <br>
+                      <input type='submit' value='submit'>
+                      </form>
+                  </td></tr>
+          </table>
+    </body>
+</html>
+    
